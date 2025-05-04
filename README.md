@@ -1,6 +1,4 @@
-# Data-Analysis-with-Complex-Queries
-
-Data-Analysis-with-Complex-Queries
+# TASK 2 Data-Analysis-with-Complex-Queries
 
 COMPANY NAME: CODTECH IT SOLUTIONS
 
