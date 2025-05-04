@@ -1,0 +1,64 @@
+----In this we learn about how to write data analysis with complex queries
+----CTES, Window Functions and Subqueries
+
+* What is CTE?
+  A CTE (Common Table Expression) is a temporary result set in SQL that you can refer to within a SELECT, INSERT, UPDATE, or DELETE statement.
+  It simplifies complex queries, improves readability, and can be used recursively.
+
+Syntax
+WITH CTE_name (column1, column2, ...)
+AS (
+    SELECT statement
+)
+SELECT *
+FROM CTE_name
+
+* What are window functions in Sql?
+  Window functions in SQL are special functions that perform calculations across a set of rows that are somehow related to the current row — this set of rows is called a window.
+
+  Unlike regular aggregate functions (like SUM, AVG, COUNT) that collapse rows into a single result, window functions keep each row and add extra information to it.
+Syntax
+function_name(...) OVER (
+    [PARTITION BY ...]
+    [ORDER BY ...]
+)
+
+* What are subqueries in sql?
+A subquery in SQL is a query inside another query — like a mini-question that helps answer a bigger question.
+OR
+A subquery in SQL, also known as a nested query or inner query, is a query placed inside another SQL statement.
+
+Example:
+SELECT employee_name
+FROM employees
+WHERE department_id = (
+  SELECT department_id
+  FROM departments
+  WHERE department_name = 'Sales'
+);
+
+NOW LET'S SEE HOW TO USE A ADVANCED DATA ANALYSIS
+This report analyzes sales data to identify REGIONAL SALES using advanced SQL techniques. The analysis uses a combination of window functions, CTEs, and subqueries to provide actionable insights.
+
+WITH RegionalSales AS (
+  SELECT region, AVG(sales_amount) AS avg_sales
+  FROM sales
+  GROUP BY region
+),
+CompanyAverage AS (
+  SELECT AVG(avg_sales) AS company_avg
+  FROM RegionalSales
+)
+SELECT
+  r.region,
+  r.avg_sales,
+  c.company_avg,
+  r.avg_sales - c.company_avg AS diff_from_avg
+FROM RegionalSales r
+CROSS JOIN CompanyAverage c;
+
+
+
+
+
+
